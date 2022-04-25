@@ -70,10 +70,7 @@ const usuariosDelete = async(req, res) => {
 
   const { id } = req.params;
 
-  //Eliminacion fisica
-  //const usuario = await Usuario.findByIdAndDelete( id );
-
-  //Eliminacion logica
+  // Eliminacion logica
   const usuario = await Usuario.findByIdAndUpdate( id, { estado: false } );
 
   res.json(usuario);

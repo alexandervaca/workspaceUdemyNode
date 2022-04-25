@@ -3,7 +3,9 @@ const { check } = require('express-validator');
 
 const { esRoleValido, existeMail, existeUsuarioPorId } = require('../helpers/db-validators');
 
-const { validarCampos } = require('../middlewares/validar-campos');
+const {
+  validarCampos, validarJWT, esAdminRole, tieneRole
+} = require('../middlewares');
 
 const { usuarioGet, usuariosGet, usuariosPut, usuariosPost, usuariosDelete, usuariosPatch } = require('../controllers/usuarios');
 
@@ -24,7 +26,7 @@ router.post('/', [
   check('nombre', 'El nombre es obligatorio').not().isEmpty(),
   check('password', 'El password es obligatorio y mayor a 6 letras').isLength({ min: 6 }),
   //check('rol', 'No es un rol valido').isIn(['ADMIN_ROLE','USER_ROLE']),
-  check('mail', 'El mail no es valido').isEmail(),
+  check('mail', 'El mail es obligatorio').isEmail(),
   check('mail').custom( (mail) => existeMail(mail) ), // MANERA EXPLICITA
   check('rol').custom( (rol) => esRoleValido(rol) ), // MANERA EXPLICITA DE INVOCAR
   //check('rol').custom( esRoleValido ), // MANERA IMPLICITA
@@ -32,6 +34,9 @@ router.post('/', [
 ], usuariosPost );
 
 router.delete('/:id', [
+  validarJWT,
+  //esAdminRole,
+  tieneRole('ADMIN_ROLE', 'VENTAS_ROLE', 'OTRO_ROLE'),
   check('id', 'No es un ID valido').isMongoId(),
   check('id').custom( existeUsuarioPorId ), // MANERA IMPLICITA
   validarCampos
