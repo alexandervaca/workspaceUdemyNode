@@ -3,11 +3,76 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=devide-width, initial-scale=1.0">
-  <title>Acceso denegado</title>
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Google Sign-in</title>
 </head>
 <body>
 
-  <h1>Acceso denegado</h1>
+  <h1>Google Sign-in</h1>
+  <hr>
+  <div id="g_id_onload"
+    data-client_id="1010302922820-6sk17e54t3fum827hc0b4pq7bcc402nj.apps.googleusercontent.com"
+    data-auto_prompt="false"
+    data-callback="handleCredentialResponse">
+  </div>
+  <div class="g_id_signin"
+    data-type="standard"
+    data-size="large"
+    data-theme="outline"
+    data-text="sign_in_with"
+    data-shape="rectangular"
+    data-logo_alignment="left">
+  </div>
 
+  <button id="google_signout">
+    Signout
+  </button>
+  
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
+<script>
+  function handleCredentialResponse(response) {
+
+    // Google Token : ID_TOKEN
+    //console.log('id_token', response.credential);
+    const body = { id_token: response.credential };
+
+    const url = ( window.location.hostname.includes('localhost') )
+      ? 'https://curso-node-restserver-alex.herokuapp.com/api/auth/google'
+      : 'http://localhost:8080/api/auth/google';
+
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify(body)
+    })
+      .then( resp => resp.json() )
+      .then( resp => {
+        console.log(resp);
+        localStorage.setItem( 'mail', resp.usuario.mail );
+      })
+      .catch( console.warn );
+  }
+
+
+  const button = document.getElementById('google_signout');
+  button.onclick = () => {
+
+    console.log( google.accounts.id );
+    
+    google.accounts.id.disableAutoSelect();
+
+
+    google.accounts.id.revoke( localStorage.getItem( 'mail' ), done => {
+      localStorage.clear();
+      location.reload();
+    });
+  }
+
+
+</script>
 </body>
 </html>
