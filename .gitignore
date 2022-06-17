@@ -6,3 +6,5 @@
 07-restserver/node_modules/
 07-restserver/.env
 08-websocket-server/node_modules/
+09-socket-colas/node_modules/
+09-socket-colas/.env
