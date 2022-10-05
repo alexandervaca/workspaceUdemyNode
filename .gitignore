@@ -8,3 +8,5 @@
 08-websocket-server/node_modules/
 09-socket-colas/node_modules/
 09-socket-colas/.env
+10-socket-chat/node_modules/
+10-socket-chat/.env

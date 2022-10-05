@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=devide-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Google Sign-in</title>
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body class="container">
+
+  <div class="row mt-5">
+    <div class="col-sm-6">
+      <h2>Acceder</h2>
+      <hr>
+      <br>
+      <div id="g_id_onload" data-client_id="1010302922820-6sk17e54t3fum827hc0b4pq7bcc402nj.apps.googleusercontent.com"
+        data-auto_prompt="false" data-callback="handleCredentialResponse">
+      </div>
+      <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline"
+        data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="left">
+      </div>
+      
+      <br>
+      <button id="google_signout">Signout</button>
+    </div>
+
+    <div class="col-sm-6">
+      <h2>Login Manual</h2>
+      <hr>
+      <form class="d-grid">  
+        <input type="text" name="mail" class="form-control mb-2" placeholder="Correo">
+        <input type="text" name="password" class="form-control mb-2" placeholder="Password">
+        
+        <button type="submit" class="btn btn-primary">Ingresar</button>
+      </form>
+    </div>
+  </div>
+
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="./js/auth.js" async defer></script>
+
+</body>
+</html>
