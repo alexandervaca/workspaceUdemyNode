@@ -10,5 +10,6 @@
 09-socket-colas/.env
 10-socket-chat/node_modules/
 10-socket-chat/.env
+10-socket-chat-v2/node_modules/
 11-ts-restserver/node_modules/
 11-ts-restserver/.env
